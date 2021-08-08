@@ -14,7 +14,8 @@ const Note = (props) => {
       <button className="delete-btn" onClick={deleteNote}>
         X
       </button>
-      <div className="para">{props.note}</div>
+      <div className="para">{props.note.task}</div>
+      <div>{props.note.date}{props.note.time}</div>
     </div>
   );
 };

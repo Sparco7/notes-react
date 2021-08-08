@@ -5,12 +5,21 @@ import "./index.css";
 
 class App extends React.Component {
   state = {
-    notes: ["cleaning", "eating"],
+    // notes: ["cleaning", "eating"],
+    notes: [
+      { task: "cleaning", time: "13:45", date: "3/4/2021" },
+      { task: "eating", time: "21:00", date: "6/8/20" },
+    ],
   };
 
-  addNote = (val) => {
-    console.log("adding a note", val);
-    this.setState({ notes: [val, ...this.state.notes] });
+  // addNote = (val) => {
+  //   console.log("adding a note", val);
+  //   this.setState({ notes: [val, ...this.state.notes] });
+  // };
+
+  addNote = (task, time, date) => {
+    console.log("adding a note", task);
+    this.setState({ notes: [{task, time, date}, ...this.state.notes] });
   };
 
   deleteNote = (val) => {
