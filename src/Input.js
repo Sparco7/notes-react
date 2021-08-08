@@ -50,7 +50,7 @@ class Input extends React.Component {
           <input type="time" value={this.state.time} onChange={this.timeChange} />
           <input type="date" value={this.state.date} onChange={this.dateChange}/>
         </div>
-
+        <br/>
         <div className="col create-col">
           <button onClick={this.createNote} id="create_btn">
             Create Note

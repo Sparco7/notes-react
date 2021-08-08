@@ -4,22 +4,26 @@ import Note from "./Note";
 import "./index.css";
 
 class App extends React.Component {
-  state = {
-    // notes: ["cleaning", "eating"],
-    notes: [
-      { task: "cleaning", time: "13:45", date: "3/4/2021" },
-      { task: "eating", time: "21:00", date: "6/8/20" },
-    ],
-  };
+  constructor() {
+    super();
+    this.state = {
+      notes: [
+        { task: "cleaning", time: "13:45", date: "3/4/2021" },
+        { task: "eating", time: "21:00", date: "6/8/2021" },
+      ],
+    };
+    this.getNotes();
+  }
 
-  // addNote = (val) => {
-  //   console.log("adding a note", val);
-  //   this.setState({ notes: [val, ...this.state.notes] });
-  // };
+  componentDidMount() {
+    let updatedArr = [];
+    updatedArr = JSON.parse(localStorage.getItem("notes"));
+    this.setState({ notes: updatedArr });
+  }
 
   addNote = (task, time, date) => {
-    console.log("adding a note", task);
-    this.setState({ notes: [{task, time, date}, ...this.state.notes] });
+    this.storeNote();
+    this.setState({ notes: [{ task, time, date }, ...this.state.notes] });
   };
 
   deleteNote = (val) => {
@@ -31,8 +35,26 @@ class App extends React.Component {
     this.setState({ notes: this.state.notes.filter((note) => note !== val) });
   };
 
+  //---------------Store Note in Local Storage--------------
+  storeNote = () => {
+    // let tempNotes = [];
+    // console.log("notes arr after adding", this.state.notes);
+    localStorage.setItem("notes", JSON.stringify(this.state.notes));
+    // tempNotes = JSON.parse(localStorage.getItem("tasks"))
+    // this.setState({notes: tempNotes})
+  };
+
+  //---------------Get Note from Local Storage--------------
+
+  getNotes = () => {
+    let updatedArr = [];
+    updatedArr = JSON.parse(localStorage.getItem("notes"));
+    this.setState({ notes: updatedArr });
+  };
+  //---------------Present notes---------------------------
   render() {
     console.log("notes arr: ", this.state.notes);
+
     return (
       <div>
         <h1>My Notes Board</h1>
