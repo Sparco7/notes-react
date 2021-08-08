@@ -5,30 +5,30 @@ class Input extends React.Component {
   state = {
     value: "",
     date: "",
-    time: ""
+    time: "",
   };
 
   handleChange = (event) => {
     this.setState({ value: event.target.value });
-    console.log(this.state.value);
   };
 
   timeChange = (event) => {
-      console.log("clicking time");
-      this.setState({ time: event.target.value });
-  }
+    this.setState({ time: event.target.value });
+  };
 
   dateChange = (event) => {
     this.setState({ date: event.target.value });
-  }
-
-  createNote = (event) => {
-    this.setState({ value: event.target.value });
-    console.log("create note");
-    this.props.newNote(this.state.value, this.state.time, this.state.date);
-    console.log("time selected",this.state.time);
   };
 
+  createNote = (event) => {
+    let pattern = /^[\w]+/;
+    this.setState({ value: event.target.value });
+    if (pattern.test(this.state.value)) {
+      console.log("valid");
+      this.props.newNote(this.state.value, this.state.time, this.state.date);
+      console.log("time selected", this.state.time);
+    }
+  };
 
   render() {
     return (
@@ -47,10 +47,18 @@ class Input extends React.Component {
           </div>
         </div>
         <div className="container">
-          <input type="time" value={this.state.time} onChange={this.timeChange} />
-          <input type="date" value={this.state.date} onChange={this.dateChange}/>
+          <input
+            type="time"
+            value={this.state.time}
+            onChange={this.timeChange}
+          />
+          <input
+            type="date"
+            value={this.state.date}
+            onChange={this.dateChange}
+          />
         </div>
-        <br/>
+        <br />
         <div className="col create-col">
           <button onClick={this.createNote} id="create_btn">
             Create Note

@@ -4,8 +4,6 @@ import "./index.css";
 const Note = (props) => {
 
   const deleteNote = () => {
-    console.log("deleting note");
-    console.log(props);
     props.deleteNote(props.note)
   };
 
@@ -15,7 +13,7 @@ const Note = (props) => {
         X
       </button>
       <div className="para">{props.note.task}</div>
-      <div>{props.note.date}{props.note.time}</div>
+      <div>Created: {props.note.date}{props.note.time}</div>
     </div>
   );
 };

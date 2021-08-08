@@ -21,27 +21,42 @@ class App extends React.Component {
     this.setState({ notes: updatedArr });
   }
 
+  //---------------Get Time--------------
+  getTime = () => {
+    let currentdate = new Date();
+    let datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " - " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+    return datetime;
+  };
+
   addNote = (task, time, date) => {
+    if (time === "" || date === "") {
+      let dateTime = this.getTime();
+      time = dateTime;
+    }
     this.storeNote();
     this.setState({ notes: [{ task, time, date }, ...this.state.notes] });
   };
 
   deleteNote = (val) => {
-    console.log("notes arr: ", this.state.notes);
-    console.log("deleting", val);
-
     let index = this.state.notes.indexOf(val);
-    console.log("index is:", index);
+
     this.setState({ notes: this.state.notes.filter((note) => note !== val) });
   };
 
   //---------------Store Note in Local Storage--------------
   storeNote = () => {
-    // let tempNotes = [];
-    // console.log("notes arr after adding", this.state.notes);
     localStorage.setItem("notes", JSON.stringify(this.state.notes));
-    // tempNotes = JSON.parse(localStorage.getItem("tasks"))
-    // this.setState({notes: tempNotes})
   };
 
   //---------------Get Note from Local Storage--------------
@@ -53,8 +68,6 @@ class App extends React.Component {
   };
   //---------------Present notes---------------------------
   render() {
-    console.log("notes arr: ", this.state.notes);
-
     return (
       <div>
         <h1>My Notes Board</h1>
